@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, rgb(75, 245, 245), rgb(170, 235, 235));
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #error {
+            color: red;
+        }
+
+        #card {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+    <title>Formulario</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario</h1>
+        <form id="myForm">
+            <div class="form-group">
+                <label for="nombre">Nombre (Mínimo 3 caracteres):</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="colorFavorito">Color Favorito (Mínimo 4 caracteres):</label>
+                <input type="text" id="colorFavorito" name="colorFavorito" required>
+            </div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+        <p id="error" class="hidden">Por favor chequea que la información sea correcta</p>
+        <div id="card" class="hidden"></div>
+    </div>
+    <script>
+        const form = document.getElementById("myForm");
+        const errorText = document.getElementById("error");
+        const card = document.getElementById("card");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            errorText.classList.add("hidden");
+            card.classList.add("hidden");
+
+            const nombreValue = form.nombre.value.trim();
+            const colorFavoritoValue = form.colorFavorito.value.trim();
+
+            if (nombreValue.length < 3 || nombreValue.startsWith(" ") || colorFavoritoValue.length < 4) {
+                errorText.classList.remove("hidden");
+            } else {
+                card.innerHTML = `
+                    <h2>Información ingresada:</h2>
+                    <p>Nombre: ${nombreValue}</p>
+                    <p>Color Favorito: ${colorFavoritoValue}</p>
+                `;
+                card.classList.remove("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
